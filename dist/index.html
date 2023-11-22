@@ -1,11 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TO DO List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="main.js" defer></script>
 </head>
+
 <body>
-    <script src="main.js"></script>
+
+    <header class="header">
+        <div class="logo">
+            <img src="img/icon.png" alt="icon">
+        </div>
+        <div class="title">
+            <p>DoIt<span>Now</span></p>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <div class="default-projects">
+            <button class="btn-default-project" id="btn-default-project">
+                <span class="material-symbols-outlined">
+                    inbox
+                </span>Inbox
+            </button>
+            <button class="btn-default-project" id="btn-default-project">
+                <span class="material-symbols-outlined">
+                    today
+                </span>Today
+            </button>
+            <button class="btn-default-project" id="btn-default-project">
+                <span class="material-symbols-outlined">
+                    date_range
+                </span>This week
+            </button>
+        </div>
+
+        <h1 class="workspace">Workspace</h1>
+        <div class="workspace-list" id="workspace-list">
+            <button class="add-project" id="btn-add-project">
+                <span class="material-symbols-outlined">
+                    add_circle
+                </span>Add project
+            </button>
+            <div class="add-project-popup" id="add-project-popup">
+                <input type="text" class="input-add-project-popup" id="input-add-project-popup">
+            </div>
+            <div class="add-project-popup-buttons">
+                <button class="button-add-project" id="button-add-project">Add</button>
+                <button class="button-cancel-project" id="button-cancel-project">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="project-preview" id="project-preview"></div>
+    </main>
+
+    <footer class="footer">
+        <p>Copyright © 2023 MirunaHaidu</p>
+    </footer>
+
+
+
+
 </body>
+
 </html>
