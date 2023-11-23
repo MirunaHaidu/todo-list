@@ -63,6 +63,7 @@ button {
 
 .title {
     font-size: 3rem;
+    color: var(--mustard);
 }
 
 .title span {
@@ -76,7 +77,8 @@ button {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+    width: 19.5rem;
 
 }
 
@@ -93,6 +95,7 @@ button {
     padding: 0.4em;
     color: var(--white);
     font-size: 1.2em;
+    width: 100%;
 }
 
 .btn-default-project span,
@@ -112,9 +115,12 @@ button {
 }
 
 .add-project-popup {
-    /* display: none; */
+    display: none;
     width: 100%;
-    margin-top: 1.5rem;
+}
+
+.add-project-popup.active {
+    display: block;
 }
 
 input {
@@ -157,11 +163,11 @@ input:focus {
 }
 
 
-.button-add-project:hover{
+.button-add-project:hover {
     background-color: #6CFF6C;
 }
 
-.button-cancel-project:hover{
+.button-cancel-project:hover {
     background-color: #FF9D9D;
 }
 
