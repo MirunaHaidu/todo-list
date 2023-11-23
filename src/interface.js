@@ -115,7 +115,7 @@ export default class Interface {
     }
 
     static clearProjects() {
-        const projectsList = document.getElementById('projects-list');
+        const projectsList = document.getElementById('workspace-list');
         projectsList.textContent = '';
     }
 
@@ -281,7 +281,7 @@ export default class Interface {
     static initAddTaskButtons() {
         const addTaskButton = document.getElementById('button-add-task');
         const addTaskPopupButton = document.getElementById('button-add-task-popup');
-        const cancelTaskPopupButton = document.getElementById('button-calcel-task-popup');
+        const cancelTaskPopupButton = document.getElementById('button-cancel-task-popup');
         const addTaskPopupInput = document.getElementById('input-add-task-popup');
 
         addTaskButton.addEventListener('click', Interface.openAddTaskPopup);

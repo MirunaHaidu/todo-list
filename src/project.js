@@ -27,7 +27,7 @@ export default class Project {
     }
 
     contains(taskName){
-        return this.find((task) => task.getName() === taskName)
+        return this.tasks.some((task) => task.getName() === taskName)
     }
 
     addTask(newTask) {
