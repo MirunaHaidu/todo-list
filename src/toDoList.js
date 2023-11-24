@@ -23,7 +23,7 @@ export default class ToDoList {
     }
 
     contains(projectName) {
-        return this.projects.find((project) => project.getName() === projectName)
+        return this.projects.some((project) => project.getName() === projectName)
     }
 
     addProject(newProject) {

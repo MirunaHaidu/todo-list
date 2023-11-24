@@ -253,7 +253,7 @@ export default class Interface {
         if (projectButton && projectButton.classList) {
             const defaultProjectButtons = document.querySelectorAll('.button-project');
             const projectButtons = [...defaultProjectButtons];
-    
+
             projectButtons.forEach((button) => button.classList.remove('active'));
             projectButton.classList.add('active');
             Interface.closeAddProjectPopup();
@@ -262,8 +262,8 @@ export default class Interface {
             console.error("Invalid projectButton:", projectButton);
         }
     }
-    
-    
+
+
 
     static deleteProject(projectName, button) {
         if (button.classList.contains('active')) {
@@ -318,7 +318,7 @@ export default class Interface {
             alert("Task name can't be empty");
             return;
         }
-        if (Storage.getToDoList().getProjects(projectName).contains(taskName)) {
+        if (Storage.getToDoList().getProject(projectName).contains(taskName)) {
             alert("Task names must be different");
             addTaskPopupInput.value = '';
             return;
@@ -400,7 +400,66 @@ export default class Interface {
         Interface.loadTasks();
     }
 
+    static openRenameInput(taskButton) {
+        const taskNamePara = taskButton.children[0].children[1];
+        let taskName = taskNamePara.textContent;
+        const taskNameInput = taskButton.children[0].children[2];
+        const projectName = taskButton.parentNode.parentNode.children[0].textContent;
 
+        if (projectName === 'Today' || projectName === 'This week') {
+            [taskName] = taskName.split(' (');
+        }
+
+        Interface.closeAllPopups();
+        taskNamePara.classList.add('active');
+        taskNameInput.classList.add('active');
+        taskNameInput.value = taskName;
+    }
+
+    static closeRenameInput(taskButton) {
+        const taskName = taskButton.children[0].children[1];
+        const taskNameInput = taskButton.children[0].children[2];
+
+        taskName.classList.remove('active');
+        taskNameInput.classList.remove('active');
+        taskNameInput.value = '';
+    }
+
+    static renameTask(e) {
+        if(e.key !== 'Enter') {
+            return;
+        }
+
+        const projectName = document.getElementById('project-name').textContent;
+        const taskName = this.previousElementSibling.textContent;
+        const newTaskName = this.value;
+
+        if (newTaskName === '') {
+            alert("Task names can't be different");
+            return;
+        }
+
+        if(Storage.getToDoList().getProject(projectName).contains(newTaskName)) {
+            this.value = '';
+            alert('Task names must be different');
+            return;
+        }
+
+        if(projectName === 'Today' || projectName === 'This week') {
+            const mainProjectName = taskName.split('(')[1].split(')')[0];
+            const mainTaskName = taskName.split(' ')[0];
+            Storage.renameTask(projectName, taskName, `${newTaskName} (${mainProjectName})`)
+            Storage.renameTask(mainProjectName, mainTaskName, newTaskName);
+        } else {
+            Storage.renameTask(projectName, taskName, newTaskName);
+        }
+
+        Interface.clearTasks();
+        Interface.loadTasks(projectName);
+        Interface.closeRenameInput(this.parentNode.parentNode);
+    }
+
+    
 
 
 
