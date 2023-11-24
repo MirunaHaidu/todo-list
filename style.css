@@ -8,6 +8,7 @@
     --dark-blue: #273E47;
     --blue-hover: #3C5F6D;
     --background: #EFEFEF;
+    --hover: #CDCDCD;
     --white: #FFFFFF;
     font-family: 'Nunito', sans-serif;
 }
@@ -78,7 +79,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 19.5rem;
+    width: 19.5em;
 
 }
 
@@ -89,23 +90,36 @@ button {
 
 }
 
+
 .btn-default-project,
-.add-project {
-    text-align: left;
+.add-project,
+.button-project {
     padding: 0.4em;
     color: var(--white);
     font-size: 1.2em;
     width: 100%;
+    display: flex;
+    align-items: center;
 }
 
+.button-project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+}
+
+
 .btn-default-project span,
-.add-project span {
+.add-project span,
+.button-project {
     margin-right: 0.5em;
 }
 
 .btn-default-project:hover,
 .btn-default-project:active,
-.add-project:hover {
+.add-project:hover,
+.button-project:hover {
     background-color: var(--blue-hover);
     border-radius: 5px;
 }
@@ -119,9 +133,24 @@ button {
     width: 100%;
 }
 
+.close {
+    visibility: hidden;
+}
+
+.button-project:hover .close {
+    visibility: visible;
+}
+
+.left-project-pannel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .add-project-popup.active {
     display: block;
 }
+
 
 input {
     border: 0;
@@ -145,32 +174,47 @@ input:focus {
 }
 
 .button-add-project,
-.button-cancel-project {
+.button-cancel-project,
+.button-add-task-popup,
+.button-cancel-task-popup {
     font-weight: bold;
     padding: 0.5rem;
     border-radius: 5px;
     width: 7rem;
 }
 
-.button-add-project {
+.button-add-project,
+.button-add-task-popup {
     border: 1px solid #99dd99;
     background-color: #aaffaa;
 }
 
-.button-cancel-project {
+
+
+.button-cancel-project,
+.button-cancel-task-popup {
     border: 1px solid #eeadad;
     background-color: #ffbebe;
 }
 
 
-.button-add-project:hover {
+.button-add-project:hover,
+.button-add-task-popup:hover{
     background-color: #6CFF6C;
 }
 
-.button-cancel-project:hover {
+.button-cancel-project:hover,
+.button-cancel-task-popup:hover  {
     background-color: #FF9D9D;
 }
 
+.right-project-panel {
+    visibility: hidden;
+}
+
+.button-project:hover .right-project-panel {
+    visibility: visible;
+}
 
 
 
@@ -181,7 +225,149 @@ input:focus {
     grid-column: 2;
 }
 
+.project-preview {
+    padding: 20px 40px;
+    margin: 0 auto;
+}
 
+.project-preview h1 {
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.button-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: default;
+    font-size: 1rem;
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 5px;
+    box-shadow: 6px 6px 8px #888888;
+}
+
+.button-task:hover {
+    background-color: var(--hover);
+    border-radius: 5px;
+}
+
+.left-task-panel {
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.task-content {
+    cursor: pointer;
+}
+
+.task-content.active {
+    display: none;
+}
+
+.input-task-name {
+    display: none;
+    height: 24px;
+    padding: 5px;
+    border: 1px solid #555;
+    font-family: inherit;
+}
+
+.input-task-name.active {
+    display: block;
+}
+
+.right-task-panel {
+    display: flex;
+    align-items: center;
+}
+
+.due-date {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.due-date.active {
+    display: none;
+}
+
+.input-due-date {
+    display: none;
+    height: 24px;
+    padding: 5px;
+    margin: 0 10px;
+    font-family: inherit;
+}
+
+.input-due-date.active {
+    display: block;
+}
+
+.button-task .right-task-panel span {
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.button-task:hover .right-task-panel span {
+    visibility: visible;
+}
+
+.button-add-task {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10px;
+    text-align: left;
+    padding:10px;
+    font-size: 1rem;
+    width:100%;
+    border-radius: 5px;
+}
+
+.button-add-task.active {
+    display: none;
+}
+
+.button-add-task:hover {
+    background-color: var(--hover);
+}
+
+.add-task-popup {
+    /* display: none; */
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+.add-task-popup.active {
+    display: block;
+}
+
+.input-add-task-popup {
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+.add-task-popup-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.button-add-task-popup,
+.button-cancel-task-popup{
+    width: 100%;
+}
 
 
 
