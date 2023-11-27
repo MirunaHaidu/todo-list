@@ -5,7 +5,10 @@ export default class Task {
     }
 
     setName(name) {
-        this.name;
+        this.name = name;
+    }
+    getName(){
+        return this.name;
     }
 
     setDate(dueDate) {

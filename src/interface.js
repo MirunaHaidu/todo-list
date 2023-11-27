@@ -28,7 +28,7 @@ export default class Interface {
             Interface.initAddTaskButtons();
         }
     }
-
+ 
 
     static loadProjectContent(projectName) {
         const projectPreview = document.getElementById('project-preview')
@@ -354,7 +354,7 @@ export default class Interface {
             Interface.setTaskCompleted(this);
             return;
         }
-        if (e.target.classList.contains('cancel')) {
+        if (e.target.classList.contains('close')) {
             Interface.deleteTask(this);
             return;
         }
@@ -397,7 +397,7 @@ export default class Interface {
         }
         Storage.deleteTask(projectName, taskName)
         Interface.clearTasks();
-        Interface.loadTasks();
+        Interface.loadTasks(projectName);
     }
 
     static openRenameInput(taskButton) {
@@ -426,7 +426,7 @@ export default class Interface {
     }
 
     static renameTask(e) {
-        if(e.key !== 'Enter') {
+        if (e.key !== 'Enter') {
             return;
         }
 
@@ -439,13 +439,13 @@ export default class Interface {
             return;
         }
 
-        if(Storage.getToDoList().getProject(projectName).contains(newTaskName)) {
+        if (Storage.getToDoList().getProject(projectName).contains(newTaskName)) {
             this.value = '';
             alert('Task names must be different');
             return;
         }
 
-        if(projectName === 'Today' || projectName === 'This week') {
+        if (projectName === 'Today' || projectName === 'This week') {
             const mainProjectName = taskName.split('(')[1].split(')')[0];
             const mainTaskName = taskName.split(' ')[0];
             Storage.renameTask(projectName, taskName, `${newTaskName} (${mainProjectName})`)
@@ -459,7 +459,46 @@ export default class Interface {
         Interface.closeRenameInput(this.parentNode.parentNode);
     }
 
-    
+    static openSetDateInput(taskButton) {
+        const dueDate = taskButton.children[1].children[0];
+        const dueDateInput = taskButton.children[1].children[1];
+
+        Interface.closeAllPopups();
+        dueDate.classList.add('active');
+        dueDateInput.classList.add('active');
+    }
+
+    static closeSetDateInput(taskButton) {
+        const dueDate = taskButton.children[1].children[0];
+        const dueDateInput = taskButton.children[1].children[1];
+
+        dueDate.classList.remove('active');
+        dueDateInput.classList.remove('active');
+    }
+
+    static setTaskDate() {
+        const taskButton = this.parentNode.parentNode;
+        const projectName = document.getElementById('project-name').textContent;
+        const taskName = taskButton.children[0].children[1].textContent;
+        const newDueDate = format(new Date(this.value), 'dd/MM/yyyy');
+
+        if (projectName === 'Today' || projectName === 'This week') {
+            const mainProjectName = taskName.split('(')[1].split(')')[0];
+            const mainTaskName = taskName.split(' (')[0];
+            Storage.setTaskDate(projectName, taskName, newDueDate);
+            Storage.setTaskDate(mainProjectName, mainTaskName, newDueDate);
+            if(projectName === 'Today') {
+                Storage.updateTodayProject();
+            } else {
+                Storage.updateWeekProject();
+            }
+        } else {
+            Storage.updateWeekProject(projectName, taskName, newDueDate);
+        }
+        Interface.clearTasks();
+        Interface.loadTasks(projectName);
+        Interface.closeSetDateInput(taskButton);
+    }
 
 
 

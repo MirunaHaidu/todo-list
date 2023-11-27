@@ -40,21 +40,22 @@ export default class Storage {
         Storage.saveToDoList(toDoList);
     }
 
-    static deleteTask(projectName, task){
+    static deleteTask(projectName, taskName){
         const toDoList = Storage.getToDoList();
-        toDoList.getProject(projectName).deleteTask(task);
+        toDoList.getProject(projectName).deleteTask(taskName);
         Storage.saveToDoList(toDoList);
     }
 
     static renameTask(projectName, taskName, newTaskName) {
         const toDoList = Storage.getToDoList();
-        toDoList.getProject(projectName).getTasks(taskName).setName(newTaskName);
+        toDoList.getProject(projectName).getTask(taskName).setName(newTaskName);
         Storage.saveToDoList(toDoList);
     }
 
     static setTaskDate(projectName, taskName, newDueDate){
         const toDoList = Storage.getToDoList();
-        toDoList.getProject(projectName).getTasks(taskName).setDate(newDueDate);
+        toDoList.getProject(projectName).getTask(taskName).setDate(newDueDate);
+        Storage.saveToDoList(toDoList);
     }
 
     static updateTodayProject(){
