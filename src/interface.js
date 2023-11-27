@@ -28,7 +28,7 @@ export default class Interface {
             Interface.initAddTaskButtons();
         }
     }
- 
+
 
     static loadProjectContent(projectName) {
         const projectPreview = document.getElementById('project-preview')
@@ -231,11 +231,12 @@ export default class Interface {
 
     static openTodayTasks() {
         Storage.updateTodayProject();
-        Interface.openProject('Inbox', this);
+        Interface.openProject('Today', this);
     }
 
     static openWeekTasks() {
-        Storage.updateWeekProject('This week', this);
+        Storage.updateWeekProject();
+        Interface.openProject('This week', this)
     }
 
     static handleProjectButton(e) {
@@ -250,17 +251,14 @@ export default class Interface {
     }
 
     static openProject(projectName, projectButton) {
-        if (projectButton && projectButton.classList) {
-            const defaultProjectButtons = document.querySelectorAll('.button-project');
-            const projectButtons = [...defaultProjectButtons];
+        const defaultProjectButtons = document.querySelectorAll('.btn-default-project');
+        const projectButtons = document.querySelectorAll('.button-project');
+        const buttons = [...defaultProjectButtons, ...projectButtons];
 
-            projectButtons.forEach((button) => button.classList.remove('active'));
-            projectButton.classList.add('active');
-            Interface.closeAddProjectPopup();
-            Interface.loadProjectContent(projectName);
-        } else {
-            console.error("Invalid projectButton:", projectButton);
-        }
+        buttons.forEach((button) => button.classList.remove('active'));
+        projectButton.classList.add('active');
+        Interface.closeAddProjectPopup();
+        Interface.loadProjectContent(projectName);
     }
 
 
@@ -481,7 +479,7 @@ export default class Interface {
         const projectName = document.getElementById('project-name').textContent;
         const taskName = taskButton.querySelector('.task-content').textContent; // Use querySelector to get the task name
         const newDueDate = format(new Date(this.value), 'dd/MM/yyyy');
-    
+
         if (projectName === 'Today' || projectName === 'This week') {
             const mainProjectName = taskName.split('(')[1].split(')')[0];
             const mainTaskName = taskName.split(' (')[0];
@@ -499,7 +497,7 @@ export default class Interface {
         Interface.loadTasks(projectName);
         Interface.closeSetDateInput(taskButton);
     }
-    
+
 
 
 
