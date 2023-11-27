@@ -87,9 +87,9 @@ export default class Interface {
         tasksList.innerHTML += `
         <button class="button-task" data-task-button>
         <div class="left-task-panel">
-        <span class="material-symbols-outlined circle">circle</span>
-          <p class="task-content">${name}</p>
-          <input type="text" class="input-task-name" data-input-task-name>
+            <span class="material-symbols-outlined circle">circle</span>
+            <p class="task-content">${name}</p>
+            <input type="text" class="input-task-name" data-input-task-name>
         </div>
         <div class="right-task-panel">
           <p class="due-date" id="due-date">${dueDate}</p>
@@ -479,26 +479,27 @@ export default class Interface {
     static setTaskDate() {
         const taskButton = this.parentNode.parentNode;
         const projectName = document.getElementById('project-name').textContent;
-        const taskName = taskButton.children[0].children[1].textContent;
+        const taskName = taskButton.querySelector('.task-content').textContent; // Use querySelector to get the task name
         const newDueDate = format(new Date(this.value), 'dd/MM/yyyy');
-
+    
         if (projectName === 'Today' || projectName === 'This week') {
             const mainProjectName = taskName.split('(')[1].split(')')[0];
             const mainTaskName = taskName.split(' (')[0];
             Storage.setTaskDate(projectName, taskName, newDueDate);
             Storage.setTaskDate(mainProjectName, mainTaskName, newDueDate);
-            if(projectName === 'Today') {
+            if (projectName === 'Today') {
                 Storage.updateTodayProject();
             } else {
                 Storage.updateWeekProject();
             }
         } else {
-            Storage.updateWeekProject(projectName, taskName, newDueDate);
+            Storage.setTaskDate(projectName, taskName, newDueDate); // Change to setTaskDate
         }
         Interface.clearTasks();
         Interface.loadTasks(projectName);
         Interface.closeSetDateInput(taskButton);
     }
+    
 
 
 
